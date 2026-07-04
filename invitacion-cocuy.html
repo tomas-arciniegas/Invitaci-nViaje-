@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Una aventura para los dos 🏔️</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --crema: #f5f0e8;
+    --tierra: #8b6f47;
+    --nieve: #ffffff;
+    --oscuro: #1a1a1a;
+    --gris: #5a5a5a;
+    --accent: #c4935a;
+    --verde: #4a6741;
+    --azul-glaciar: #7ba7bc;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--oscuro);
+    color: var(--crema);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://i.ibb.co/d0qwWtH5/Sendero-Ritacuba-Danilo-Arenas3-1536x865.jpg');
+    background-size: cover;
+    background-position: center 30%;
+    filter: brightness(0.45);
+    transform: scale(1.05);
+    animation: kenburns 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes kenburns {
+    from { transform: scale(1.05) translateX(0); }
+    to   { transform: scale(1.12) translateX(-2%); }
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(26,26,26,0.95) 100%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 24px;
+  }
+
+  .hero-eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 1s 0.5s ease forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(48px, 10vw, 90px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.05;
+    color: var(--nieve);
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 1s 0.8s ease forwards;
+  }
+
+  .hero-title span { color: var(--accent); }
+
+  .hero-sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.7);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: fadeUp 1s 1.1s ease forwards;
+  }
+
+  .hero-date {
+    display: inline-block;
+    border: 1px solid rgba(196,147,90,0.5);
+    padding: 14px 36px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: var(--accent);
+    opacity: 0;
+    animation: fadeUp 1s 1.4s ease forwards;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s 2.5s ease forwards;
+  }
+
+  .scroll-hint span {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 48px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  /* ─── SECCIÓN INTRO ─── */
+  .section { padding: 100px 24px; }
+  .section-inner { max-width: 680px; margin: 0 auto; }
+
+  .intro-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.6;
+    color: var(--crema);
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .intro-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0;
+  }
+
+  .intro-divider::before,
+  .intro-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(196,147,90,0.3);
+  }
+
+  .intro-divider-icon {
+    color: var(--accent);
+    font-size: 18px;
+  }
+
+  /* ─── DESTINO ─── */
+  .destino-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin: 0 -24px;
+  }
+
+  .destino-img {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/3;
+  }
+
+  .destino-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.7);
+    transition: transform 0.8s ease, filter 0.8s ease;
+  }
+
+  .destino-img:hover img {
+    transform: scale(1.05);
+    filter: brightness(0.9);
+  }
+
+  .destino-img-label {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  /* ─── DATOS CLAVE ─── */
+  .datos-bg {
+    background: rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(196,147,90,0.15);
+    border-bottom: 1px solid rgba(196,147,90,0.15);
+  }
+
+  .datos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 0;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .dato {
+    padding: 40px 20px;
+    border-right: 1px solid rgba(196,147,90,0.15);
+  }
+
+  .dato:last-child { border-right: none; }
+
+  .dato-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .dato-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+  }
+
+  /* ─── ITINERARIO ─── */
+  .itinerario-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 6vw, 52px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--nieve);
+    margin-bottom: 8px;
+  }
+
+  .section-eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .days-wrapper { margin-top: 60px; }
+
+  .day-item {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 32px;
+    padding: 48px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .day-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .day-item:last-child { border-bottom: none; }
+
+  .day-left { text-align: center; }
+
+  .day-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 4px;
+  }
+
+  .day-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.08);
+    line-height: 1;
+  }
+
+  .day-date-mini {
+    font-size: 11px;
+    color: rgba(245,240,232,0.35);
+    margin-top: 4px;
+  }
+
+  .day-right {}
+
+  .day-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4vw, 30px);
+    font-weight: 400;
+    color: var(--nieve);
+    margin-bottom: 12px;
+  }
+
+  .day-desc {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.65);
+    margin-bottom: 20px;
+  }
+
+  .day-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .tag {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border: 1px solid rgba(196,147,90,0.3);
+    color: var(--accent);
+  }
+
+  .tag.verde {
+    border-color: rgba(74,103,65,0.5);
+    color: #8ab07c;
+  }
+
+  .tag.azul {
+    border-color: rgba(123,167,188,0.4);
+    color: var(--azul-glaciar);
+  }
+
+  /* ─── ROPA ─── */
+  .ropa-bg { background: rgba(255,255,255,0.02); }
+
+  .ropa-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    margin-top: 48px;
+  }
+
+  .ropa-cat {
+    padding: 32px 24px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(196,147,90,0.1);
+    transition: border-color 0.3s;
+  }
+
+  .ropa-cat:hover { border-color: rgba(196,147,90,0.35); }
+
+  .ropa-cat-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+
+  .ropa-cat-title {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 14px;
+  }
+
+  .ropa-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ropa-list li {
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.65);
+    padding-left: 14px;
+    position: relative;
+    line-height: 1.5;
+  }
+
+  .ropa-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 10px;
+    top: 4px;
+  }
+
+  /* ─── HOSPEDAJE ─── */
+  .hospedaje-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    margin-top: 48px;
+  }
+
+  .hospedaje-img-wrap {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hospedaje-img-wrap img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.85);
+  }
+
+  .hospedaje-img-wrap::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(196,147,90,0.2);
+    pointer-events: none;
+  }
+
+  .hospedaje-info {}
+
+  .hospedaje-detail {
+    display: flex;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.65);
+    align-items: flex-start;
+  }
+
+  .hospedaje-detail:last-child { border-bottom: none; }
+
+  .hospedaje-detail-icon { color: var(--accent); flex-shrink: 0; font-size: 16px; }
+
+  /* ─── CTA FINAL ─── */
+  .cta-section {
+    text-align: center;
+    padding: 120px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-bg {
+    position: absolute;
+    inset: 0;
+    background-image: url('https://i.ibb.co/d0qwWtH5/Sendero-Ritacuba-Danilo-Arenas3-1536x865.jpg');
+    background-size: cover;
+    background-position: center 60%;
+    filter: brightness(0.2);
+  }
+
+  .cta-content { position: relative; z-index: 2; }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 7vw, 68px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--nieve);
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+
+  .cta-title em { color: var(--accent); font-style: italic; }
+
+  .cta-sub {
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.5);
+    margin-bottom: 48px;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--oscuro);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 18px 48px;
+    cursor: pointer;
+    border: none;
+    transition: background 0.3s, transform 0.2s;
+    text-decoration: none;
+  }
+
+  .cta-btn:hover {
+    background: #d4a46a;
+    transform: translateY(-2px);
+  }
+
+  /* ─── MUSIC BAR ─── */
+  .music-bar {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(26,26,26,0.92);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(196,147,90,0.3);
+    padding: 12px 18px;
+    cursor: pointer;
+    transition: border-color 0.3s;
+  }
+
+  .music-bar:hover { border-color: var(--accent); }
+
+  .music-icon {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .music-icon svg { width: 14px; height: 14px; fill: var(--oscuro); }
+
+  .music-text { font-size: 11px; font-weight: 500; letter-spacing: 1px; color: var(--crema); }
+  .music-title { font-size: 10px; color: rgba(245,240,232,0.45); margin-top: 1px; }
+
+  .bars {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    height: 16px;
+  }
+
+  .bar {
+    width: 3px;
+    background: var(--accent);
+    border-radius: 2px;
+    animation: bounce 1.2s ease-in-out infinite;
+  }
+
+  .bar:nth-child(1) { height: 6px; animation-delay: 0s; }
+  .bar:nth-child(2) { height: 14px; animation-delay: 0.2s; }
+  .bar:nth-child(3) { height: 10px; animation-delay: 0.4s; }
+  .bar:nth-child(4) { height: 16px; animation-delay: 0.1s; }
+
+  .bar.paused { animation-play-state: paused; }
+
+  @keyframes bounce {
+    0%, 100% { transform: scaleY(0.4); }
+    50%       { transform: scaleY(1); }
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 640px) {
+    .destino-grid { grid-template-columns: 1fr; }
+    .hospedaje-wrap { grid-template-columns: 1fr; }
+    .day-item { grid-template-columns: 60px 1fr; gap: 20px; }
+    .day-number { font-size: 36px; }
+    .dato { padding: 28px 12px; }
+    .music-bar { bottom: 16px; right: 16px; }
+    .destino-img { display: none; }
+    .destino-img:first-child { display: block; }
+  }
+</style>
+</head>
+<body>
+
+<!-- MÚSICA -->
+<div class="music-bar" id="musicBar" onclick="toggleMusic()">
+  <div class="music-icon" id="musicIcon">
+    <svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg>
+  </div>
+  <div>
+    <div class="music-text">Señorita Remix</div>
+    <div class="music-title">Jean Pi, DEKKO</div>
+  </div>
+  <div class="bars" id="bars">
+    <div class="bar paused"></div>
+    <div class="bar paused"></div>
+    <div class="bar paused"></div>
+    <div class="bar paused"></div>
+  </div>
+</div>
+
+<audio id="music" loop preload="auto"></audio>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Una aventura para los dos</p>
+    <h1 class="hero-title">Vamos a <span>El Cocuy</span></h1>
+    <p class="hero-sub">Sierra Nevada · Boyacá · Colombia</p>
+    <div class="hero-date">12 — 16 Diciembre 2026</div>
+  </div>
+  <div class="scroll-hint">
+    <span>Desliza</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="section">
+  <div class="section-inner">
+    <p class="intro-text">
+      Quiero llevarte a ver nieve en Colombia, caminar entre glaciares que tienen millones de años,
+      y después relajarnos juntos en aguas termales a pie de montaña.
+    </p>
+    <div class="intro-divider">
+      <span class="intro-divider-icon">✦</span>
+    </div>
+    <p class="intro-text" style="font-size: clamp(16px, 3vw, 22px); color: rgba(245,240,232,0.6);">
+      El Parque Nacional Natural El Cocuy tiene la mayor masa glaciar de Colombia.
+      Es uno de los lugares más únicos e impresionantes del planeta — y quiero verlo contigo.
+    </p>
+  </div>
+</section>
+
+<!-- FOTOS DESTINO -->
+<div class="destino-grid">
+  <div class="destino-img">
+    <img src="https://i.ibb.co/d0qwWtH5/Sendero-Ritacuba-Danilo-Arenas3-1536x865.jpg" alt="Glaciares El Cocuy">
+    <span class="destino-img-label">Sendero Ritacuba · 4.000 msnm</span>
+  </div>
+  <div class="destino-img">
+    <img src="https://i.ibb.co/BK6yftsZ/71ed42d7-1814-4f48-9919-1017b61abba9.jpg" alt="Hospedaje El Cocuy">
+    <span class="destino-img-label">Nuestro hospedaje · Güicán</span>
+  </div>
+</div>
+
+<!-- DATOS -->
+<div class="datos-bg section" style="padding: 0;">
+  <div class="datos-grid">
+    <div class="dato">
+      <div class="dato-num">4</div>
+      <div class="dato-label">Días juntos</div>
+    </div>
+    <div class="dato">
+      <div class="dato-num">5.330</div>
+      <div class="dato-label">Metros de altura</div>
+    </div>
+    <div class="dato">
+      <div class="dato-num">25</div>
+      <div class="dato-label">Picos nevados</div>
+    </div>
+    <div class="dato">
+      <div class="dato-num">∞</div>
+      <div class="dato-label">Recuerdos</div>
+    </div>
+  </div>
+</div>
+
+<!-- ITINERARIO -->
+<section class="section" style="background: rgba(255,255,255,0.01);">
+  <div class="section-inner" style="max-width: 800px;">
+    <p class="section-eyebrow">Día a día</p>
+    <h2 class="itinerario-title">Lo que vamos a vivir</h2>
+
+    <div class="days-wrapper">
+
+      <div class="day-item">
+        <div class="day-left">
+          <div class="day-label">Noche</div>
+          <div class="day-number">0</div>
+          <div class="day-date-mini">Vie 12 Dic</div>
+        </div>
+        <div class="day-right">
+          <h3 class="day-title">La gran salida — Bogotá a Güicán</h3>
+          <p class="day-desc">
+            A las 9 pm salimos desde la Terminal Salitre en bus nocturno directo a Güicán de la Sierra.
+            Dormimos en el camino mientras la cordillera nos lleva a otra dimensión.
+            Llegamos al amanecer, con la Sierra Nevada esperándonos.
+          </p>
+          <div class="day-tags">
+            <span class="tag">Terminal Salitre · 9 pm</span>
+            <span class="tag">~10 horas</span>
+            <span class="tag verde">Llevar cobija</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-item">
+        <div class="day-left">
+          <div class="day-label">Día</div>
+          <div class="day-number">1</div>
+          <div class="day-date-mini">Sáb 13 Dic</div>
+        </div>
+        <div class="day-right">
+          <h3 class="day-title">Llegada y aclimatación</h3>
+          <p class="day-desc">
+            Desayuno en una fonda del pueblo con calentado y tinto boyacense.
+            Nos registramos en Parques Nacionales y hacemos la charla de inducción obligatoria.
+            Recorremos el pueblo colonial de Güicán a pie, conocemos la cultura U'wa,
+            compramos lo que necesitamos para el día siguiente y dormimos temprano.
+            El cuerpo necesita adaptarse a los 2.700 metros.
+          </p>
+          <div class="day-tags">
+            <span class="tag">Registro Parques Nacionales</span>
+            <span class="tag verde">Aclimatación</span>
+            <span class="tag">Pueblo colonial</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-item">
+        <div class="day-left">
+          <div class="day-label">Día</div>
+          <div class="day-number">2</div>
+          <div class="day-date-mini">Dom 14 Dic</div>
+        </div>
+        <div class="day-right">
+          <h3 class="day-title">Sendero Lagunillas — Púlpito del Diablo 🏔️</h3>
+          <p class="day-desc">
+            El día más épico. Salimos antes del amanecer en jeep al parque.
+            Caminamos el sendero Lagunillas hasta el Púlpito del Diablo: glaciares
+            de millones de años, lagunas de color esmeralda, frailejones gigantes
+            y el silencio más profundo que hayas escuchado.
+            Entramos entre las 6–8 am acompañados de nuestro guía certificado.
+            Son 15,6 km ida y vuelta a más de 4.000 metros de altura.
+            Un día que no se olvida.
+          </p>
+          <div class="day-tags">
+            <span class="tag azul">Salida 5:30 am en jeep</span>
+            <span class="tag azul">4.000+ msnm</span>
+            <span class="tag azul">15,6 km ida y vuelta</span>
+            <span class="tag">Guía certificado</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-item">
+        <div class="day-left">
+          <div class="day-label">Día</div>
+          <div class="day-number">3</div>
+          <div class="day-date-mini">Lun 15 Dic</div>
+        </div>
+        <div class="day-right">
+          <h3 class="day-title">Termales de Güicán ♨️</h3>
+          <p class="day-desc">
+            Después de la montaña, el premio.
+            Los termales de Güicán son completamente naturales, a 40°C,
+            rodeados de montañas y el Río Nevado. Aguas ricas en minerales
+            que relajan cada músculo. A solo 5 km del pueblo en la vereda San Luis.
+            Tarde libre en el pueblo, atardecer sobre la Sierra Nevada,
+            cena especial de última noche.
+          </p>
+          <div class="day-tags">
+            <span class="tag verde">Aguas termales 40°C</span>
+            <span class="tag verde">Vereda San Luis · 5 km</span>
+            <span class="tag">Tarde libre</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="day-item">
+        <div class="day-left">
+          <div class="day-label">Día</div>
+          <div class="day-number">4</div>
+          <div class="day-date-mini">Mar 16 Dic</div>
+        </div>
+        <div class="day-right">
+          <h3 class="day-title">Regreso a casa</h3>
+          <p class="day-desc">
+            Nos despertamos temprano por última vez con las montañas encima.
+            Bus de regreso a Bogotá a las 5 am, llegamos en la tarde
+            con la cabeza llena de imágenes que no se van a olvidar.
+          </p>
+          <div class="day-tags">
+            <span class="tag">Bus 5 am · Güicán → Bogotá</span>
+            <span class="tag">~10 horas</span>
+            <span class="tag verde">Llegada ~3–4 pm</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOSPEDAJE -->
+<section class="section ropa-bg">
+  <div class="section-inner" style="max-width: 900px;">
+    <p class="section-eyebrow">Donde dormimos</p>
+    <h2 class="itinerario-title">Nuestro hospedaje</h2>
+    <div class="hospedaje-wrap">
+      <div class="hospedaje-img-wrap">
+        <img src="https://i.ibb.co/BK6yftsZ/71ed42d7-1814-4f48-9919-1017b61abba9.jpg" alt="Hospedaje El Cocuy">
+      </div>
+      <div class="hospedaje-info">
+        <div class="hospedaje-detail">
+          <span class="hospedaje-detail-icon">📍</span>
+          <span>Pueblo de El Cocuy / Güicán de la Sierra · Boyacá</span>
+        </div>
+        <div class="hospedaje-detail">
+          <span class="hospedaje-detail-icon">🗓️</span>
+          <span>3 noches · 13, 14 y 15 de diciembre</span>
+        </div>
+        <div class="hospedaje-detail">
+          <span class="hospedaje-detail-icon">🏠</span>
+          <span>Hospedaje local en el corazón del pueblo, cerca de la oficina de Parques Nacionales</span>
+        </div>
+        <div class="hospedaje-detail">
+          <span class="hospedaje-detail-icon">🌡️</span>
+          <span>Temperatura ~8–13°C en diciembre — noches frías, desayunos con tinto caliente</span>
+        </div>
+        <div class="hospedaje-detail">
+          <span class="hospedaje-detail-icon">✦</span>
+          <span>Ya reservado y asegurado para los dos</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROPA -->
+<section class="section">
+  <div class="section-inner" style="max-width: 900px;">
+    <p class="section-eyebrow">Lo que llevas tú</p>
+    <h2 class="itinerario-title">Qué alistar</h2>
+    <p style="font-size:13px; color:rgba(245,240,232,0.5); margin-top:8px; line-height:1.8;">
+      La montaña no perdona la falta de preparación. Alístalo con tiempo, no de último minuto.
+    </p>
+    <div class="ropa-grid">
+      <div class="ropa-cat">
+        <div class="ropa-cat-icon">🧥</div>
+        <div class="ropa-cat-title">Ropa de abrigo</div>
+        <ul class="ropa-list">
+          <li>Ropa térmica interior (top + leggins)</li>
+          <li>Chaqueta impermeable o rompevientos</li>
+          <li>Pantalón de trekking</li>
+          <li>Chaqueta de lana o polar</li>
+          <li>Guantes de lana o esquí</li>
+          <li>Gorro de lana que cubra orejas</li>
+          <li>Buff o pañoleta para cuello</li>
+          <li>Medias gruesas de lana × 3 pares</li>
+        </ul>
+      </div>
+      <div class="ropa-cat">
+        <div class="ropa-cat-icon">👟</div>
+        <div class="ropa-cat-title">Calzado</div>
+        <ul class="ropa-list">
+          <li>Botas de trekking impermeables con buen agarre</li>
+          <li>Chanclas para el hospedaje</li>
+          <li>Zapatos cómodos para el pueblo</li>
+        </ul>
+      </div>
+      <div class="ropa-cat">
+        <div class="ropa-cat-icon">🎒</div>
+        <div class="ropa-cat-title">Mochila y equipo</div>
+        <ul class="ropa-list">
+          <li>Mochila de 25–35 litros para el sendero</li>
+          <li>Termo con agua caliente (4 litros)</li>
+          <li>Snacks para el parque: nueces, panela, barras</li>
+          <li>Linterna de cabeza</li>
+          <li>Poncho impermeable</li>
+          <li>Bastones de trekking (opcional)</li>
+          <li>Bolsas plásticas para proteger electrónicos</li>
+        </ul>
+      </div>
+      <div class="ropa-cat">
+        <div class="ropa-cat-icon">💊</div>
+        <div class="ropa-cat-title">Salud y cuidado</div>
+        <ul class="ropa-list">
+          <li>Bloqueador solar FPS 50+ (obligatorio)</li>
+          <li>Lentes de sol con protección UV 100%</li>
+          <li>Pastillas de altura (consultar médico)</li>
+          <li>Ibuprofeno / paracetamol</li>
+          <li>Curitas y botiquín básico</li>
+          <li>Hidratante labial</li>
+          <li>Pastillas para el mareo (carretera con curvas)</li>
+        </ul>
+      </div>
+      <div class="ropa-cat">
+        <div class="ropa-cat-icon">💡</div>
+        <div class="ropa-cat-title">Importante recordar</div>
+        <ul class="ropa-list">
+          <li>Todo el dinero en <strong style="color:var(--accent)">efectivo</strong> — el cajero falla</li>
+          <li>No llevar plásticos de un solo uso al parque</li>
+          <li>No llevar bebidas alcohólicas</li>
+          <li>No llevar mascotas</li>
+          <li>Cédula en la mochila siempre</li>
+          <li>Cargador portátil para el celular</li>
+        </ul>
+      </div>
+      <div class="ropa-cat">
+        <div class="ropa-cat-icon">♨️</div>
+        <div class="ropa-cat-title">Para los termales</div>
+        <ul class="ropa-list">
+          <li>Vestido de baño</li>
+          <li>Toalla</li>
+          <li>Chanclas de piscina</li>
+          <li>Ropa extra de muda</li>
+          <li>Bolsa para ropa mojada</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="cta-bg"></div>
+  <div class="cta-content">
+    <h2 class="cta-title">¿Te vienes <em>conmigo?</em></h2>
+    <p class="cta-sub">12 · 16 Diciembre 2026 · El Cocuy, Boyacá</p>
+    <div style="font-family:'Cormorant Garamond',serif; font-size:clamp(16px,3vw,24px); font-style:italic; color:rgba(245,240,232,0.6); margin-bottom:48px; max-width:480px; margin-left:auto; margin-right:auto; line-height:1.7;">
+      La montaña más bella de Colombia nos espera. Y yo quiero vivirla a tu lado.
+    </div>
+  </div>
+</section>
+
+<script>
+  const music = document.getElementById('music');
+  const musicBar = document.getElementById('musicBar');
+  const playIcon = document.getElementById('playIcon');
+  const bars = document.getElementById('bars');
+  let playing = false;
+
+  music.src = 'https://raw.githubusercontent.com/tomas-arciniegas/Se-orita/3a9ca4c325f5b0676cc435a0f5b7f5499a5ecf62/Jean%20Pi%2C%20DEKKO%20-%20Se%C3%B1orita%20Remix%20(Official%20Video).mp3';
+  music.volume = 0.7;
+
+  function toggleMusic() {
+    if (playing) {
+      music.pause();
+      playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>';
+      document.querySelectorAll('.bar').forEach(b => b.classList.add('paused'));
+      playing = false;
+    } else {
+      music.play().then(() => {
+        playIcon.innerHTML = '<rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>';
+        document.querySelectorAll('.bar').forEach(b => b.classList.remove('paused'));
+        playing = true;
+      }).catch(() => {});
+    }
+  }
+
+  // Auto-play on first interaction
+  document.body.addEventListener('click', function autoPlay() {
+    if (!playing) toggleMusic();
+    document.body.removeEventListener('click', autoPlay);
+  }, { once: true });
+
+  // Scroll reveal
+  const items = document.querySelectorAll('.day-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  items.forEach(item => observer.observe(item));
+</script>
+</body>
+</html>
